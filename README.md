@@ -1,4 +1,4 @@
-# H-STM32F4xxCore144
+# HY-STM32F4xxCore144
 
 MicroPython board definition for the HY-STM32F4xxCore144 board
 
