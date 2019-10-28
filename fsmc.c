@@ -15,7 +15,7 @@ void fsmc_sram_init() {
 
     GPIO_InitTypeDef gpio = {
         .Mode = GPIO_MODE_AF_PP,
-        .Pull = GPIO_PULLUP,
+        .Pull = GPIO_NOPULL,
         .Speed = GPIO_SPEED_FREQ_VERY_HIGH,
         .Alternate = GPIO_AF12_FSMC
     };
@@ -48,20 +48,34 @@ void fsmc_sram_init() {
     SRAM_HandleTypeDef hsram = {
         .Instance = FSMC_NORSRAM_DEVICE,
         .Extended = FSMC_NORSRAM_EXTENDED_DEVICE,
-
         .Init = {
-            .NSBank          = FSMC_NORSRAM_BANK2,
-            .DataAddressMux  = FSMC_DATA_ADDRESS_MUX_DISABLE,
-            .MemoryType      = FSMC_MEMORY_TYPE_PSRAM,
-            .MemoryDataWidth = FSMC_NORSRAM_MEM_BUS_WIDTH_16,
+            .NSBank             = FSMC_NORSRAM_BANK2,
+            .DataAddressMux     = FSMC_DATA_ADDRESS_MUX_DISABLE,
+            .MemoryType         = FSMC_MEMORY_TYPE_PSRAM,
+            .MemoryDataWidth    = FSMC_NORSRAM_MEM_BUS_WIDTH_16,
+            .BurstAccessMode    = FSMC_BURST_ACCESS_MODE_DISABLE,
+            .WaitSignalPolarity = FSMC_WAIT_SIGNAL_POLARITY_LOW,
+            .WrapMode           = FSMC_WRAP_MODE_DISABLE,
+            .WaitSignalActive   = FSMC_WAIT_TIMING_BEFORE_WS,
+            .WriteOperation     = FSMC_WRITE_OPERATION_ENABLE,
+            .WaitSignal         = FSMC_WAIT_SIGNAL_DISABLE,
+            .ExtendedMode       = FSMC_EXTENDED_MODE_DISABLE,
+            .AsynchronousWait   = FSMC_ASYNCHRONOUS_WAIT_DISABLE,
+            .WriteBurst         = FSMC_WRITE_BURST_DISABLE,
+            .PageSize           = FSMC_PAGE_SIZE_NONE,
         },
     };
     FSMC_NORSRAM_TimingTypeDef SRAM_Timing = {
         .AddressSetupTime = 3,
+        .AddressHoldTime = 15,
         .DataSetupTime = 8,
+        .BusTurnAroundDuration = 2,
+        .CLKDivision = 16,
+        .DataLatency = 17,
+        .AccessMode = FSMC_ACCESS_MODE_A,
     };
 
-    HAL_SRAM_Init(&hsram, &SRAM_Timing, &SRAM_Timing);
+    HAL_SRAM_Init(&hsram, &SRAM_Timing, NULL);
 }
 
 
