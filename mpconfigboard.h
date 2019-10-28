@@ -1,6 +1,8 @@
 #define MICROPY_HW_BOARD_NAME       "HY-STM32F407Core144"
 #define MICROPY_HW_MCU_NAME         "STM32F407ZG"
 
+#define MICROPY_BOARD_INIT (1)
+
 #define MICROPY_HW_HAS_SWITCH       (0)
 #define MICROPY_HW_HAS_FLASH        (1)
 #define MICROPY_HW_ENABLE_RNG       (1)
